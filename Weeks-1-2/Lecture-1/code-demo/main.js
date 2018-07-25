@@ -1,4 +1,4 @@
-let myName = prompt('What\'s your name?')
+let myName = prompt('What\'s your name?');
 
-console.log(myName)
+console.log(myName);
 
