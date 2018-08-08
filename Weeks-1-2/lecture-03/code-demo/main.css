@@ -1,0 +1,21 @@
+
+p {
+    background-color: green;
+    width: calc(100% / 3);
+    /* display: inline-block; */
+    margin-right: 0px;
+    /* margin: 10px;
+    padding: 10px;
+    border: solid 2px blue;
+    float: left; */
+    /* border-color: blue; */
+}
+
+/* .name {
+    color: red;
+} */
+
+span {
+    color: blue;
+    font: bold;
+}

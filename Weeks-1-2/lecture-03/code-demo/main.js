@@ -1,3 +1,24 @@
+//declaring
+let captchaArray = ['Who is the President?', 'What is our Nations Capital?', 'How many States are there?'];
+
+let random = Math.floor(Math.random() * captchaArray.length);
+
+prompt(captchaArray[random]);
+
+// function captchaFunction() {
+//     let correctAnswer = ['Trump', 'DC', '50'];
+//     for(let i = captchaArray.length -1; i>=0; i--) {
+//         let result = prompt(captchaArray[i]);
+//         if(correctAnswer[i] !== result) {
+//             alert('Sorry Robot');
+//             return;
+//         }
+//     }
+//     alert('Hello Human');
+// }
+
+// captchaFunction();
+
 //declaring a variable with the name of myName and assigning it the value of the return value of  the function prompt
 let myName = prompt('What\'s your name?');
 //declaring a variable with the name of myName and assigning it the value of the return value of  the function confirm
