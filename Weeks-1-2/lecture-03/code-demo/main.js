@@ -1,23 +1,36 @@
-//declaring
+//declaring a variable called captchaArray and assigning it's value to an array of questions
 let captchaArray = ['Who is the President?', 'What is our Nations Capital?', 'How many States are there?'];
 
+//declaring a variable called random and assiging it the value of a a radom number generator
+//Math.random will give us a number between 0 and 1 not including 1
+// multiplying the random decimal by the length of the array to establish our range(will give us a random number between 0 and 3 not including 3)
+//Math.floor will round the number down to give us a whole number
 let random = Math.floor(Math.random() * captchaArray.length);
 
+//calling prompt and indexing the captchaArray with our random number to give us a random question
 prompt(captchaArray[random]);
 
-// function captchaFunction() {
-//     let correctAnswer = ['Trump', 'DC', '50'];
-//     for(let i = captchaArray.length -1; i>=0; i--) {
-//         let result = prompt(captchaArray[i]);
-//         if(correctAnswer[i] !== result) {
-//             alert('Sorry Robot');
-//             return;
-//         }
-//     }
-//     alert('Hello Human');
-// }
+//defining a function called captchaFunction
+function captchaFunction() {
+    //declaring a variable called correctAnswer and assiging it the value of an array of answers
+    let correctAnswer = ['Trump', 'DC', '50'];
+    //using a for loop to loop through the array of questions
+    for(let i = 0; i < captchaArray.length; i++) {
+        //declaring a new variable called result and assiging it the value of invoking the prompt function and passing it the argument of the index of i in captchaArray
+        let result = prompt(captchaArray[i]);
+        //checking if the users input(result) does not equal the the value at index of i in correctAnswer array
+        if(correctAnswer[i] !== result) {
+            //if correctAnswer[i] and result do not match invoke alert with the argument of Sorry Robot and return(break the function)
+            alert('Sorry Robot');
+            return;
+        }
+    }
+    //if the if statement above does not return, invoke the function alert with the argument Hello Human
+    alert('Hello Human');
+}
 
-// captchaFunction();
+//invoke or call the captchatFunction
+captchaFunction();
 
 //declaring a variable with the name of myName and assigning it the value of the return value of  the function prompt
 let myName = prompt('What\'s your name?');
