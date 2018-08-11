@@ -29,7 +29,7 @@ function captchaFunction() {
     alert('Hello Human');
 }
 
-//invoke or call the captchatFunction
+//invoke or call the captchaFunction
 captchaFunction();
 
 //declaring a variable with the name of myName and assigning it the value of the return value of  the function prompt
