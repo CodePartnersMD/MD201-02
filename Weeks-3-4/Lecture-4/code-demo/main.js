@@ -18,6 +18,7 @@ let WizardSchool = function(name, students, start, end, spellsPerCaster, minCast
     this.minCasters = minCasters;
     this.maxCasters = maxCasters;
     this.totalSpellsPerDay = 0;
+    this.spellsPerHourArray = [];
     //create a method to calculate how many spells are cast per hour
     this.totalSpellsPerHour = function() {
         // Math.floor(Math.random() * (100 - 30)) + 30
@@ -74,6 +75,8 @@ function displayTotalSpells(school) {
     elRow.appendChild(elRowHeader);
     //set the inner html value to the school name
     elRowHeader.innerHTML = school.name;
+    //create a new property with object.prototype that will store our spells per hour in an array
+    // school.prototype.spellsPerHourArray = [];
     //create a loop that will start at the school start at the end time and end before the end time
     for(let i = school.startTime; i < school.endTime; i ++) {
         //declare result variable and assign it the return value of invoking the totalSpellsPerHour method on our WizardSchool instance
@@ -86,6 +89,9 @@ function displayTotalSpells(school) {
         elTableData.innerHTML = result;
         //reassign the value of the totalSpellsPerDay property by adding result
         school.totalSpellsPerDay += result;
+        // *****
+        school.spellsPerHourArray.push(result);
+        // *****
     }
     //create a new table head element taht will contain our totals
     let elTotalTableData = document.createElement('th');
@@ -95,6 +101,55 @@ function displayTotalSpells(school) {
     elTotalTableData.innerHTML = school.totalSpellsPerDay;
 }
 
+// *****
+//define a function that will display our footer with the total spells cast for every school per hour
+function displayFooter() {
+    //create footer row
+    let elFooterRow = document.createElement('tr');
+    //append our footer row to our table
+    elTable.appendChild(elFooterRow);
+    //create a table head element to contain out footer title
+    let elFooterTitle = document.createElement('th');
+    //append our th to our footer row
+    elFooterRow.appendChild(elFooterTitle);
+    elFooterTitle.setAttribute('class', 'footer');
+
+    //display text in our footer title element
+    elFooterTitle.innerHTML = 'Total';
+    //declare a variable that will store our total spells per day for all schools
+    let total = 0;
+    //loop through for the amount of hours that our schools are open
+    for(let i=0; i < 8; i++) {
+        //declare a variable that will have the value and track 
+        let totalSpellsPerHour = 0;
+        for(let j=0; j < wizardSchoolArray.length; j++) {
+            totalSpellsPerHour += wizardSchoolArray[j].spellsPerHourArray[i];
+            console.log('inner for loop', wizardSchoolArray[j].name, j);
+        }
+        console.log('outer for loop', i);
+        //create new th to contain our total spells per hour for all schools
+        let elTotalSpellsPerHourFooter = document.createElement('th');
+        elTotalSpellsPerHourFooter.setAttribute('class', 'footer');
+        //append our th to our footer
+        elFooterRow.appendChild(elTotalSpellsPerHourFooter);
+        //set the inner html to the value of totalSpellsPerHour
+        elTotalSpellsPerHourFooter.innerHTML = totalSpellsPerHour;
+        //add totalSpellsPerHour to the value of our total variable
+        total += totalSpellsPerHour;
+    }
+    console.log(total);
+    //create a new th that will contain our total spells for every school for all day
+    let elTotalSpellsPerDayFooter = document.createElement('th');
+    elTotalSpellsPerDayFooter.setAttribute('class', 'footer');
+
+    //append our new th to our footer row
+    elFooterRow.appendChild(elTotalSpellsPerDayFooter);
+    //assign the inner html of our total footer header to the value of our total variable
+    elTotalSpellsPerDayFooter.innerHTML = total;
+}
+//*****
+
+
 //declare new variable called schoolName and assign it the value of our input with the name of schoolName
 let schoolName = elForm.schoolName;
 let spellsPerCaster = elForm.spellsPerCaster;
@@ -103,11 +158,17 @@ let spellsPerCaster = elForm.spellsPerCaster;
 function createNewSchool(event) {
     //use prevent default method to prevent the page from refreshing
     event.preventDefault();
+    //remove our old footer before creating and appending a new one
+    console.log(elTable.childNodes);
+    elTable.removeChild(elTable.childNodes[elTable.childNodes.length - 1]);
     //declare a variable called newSchool with a new instantiated object of our constructor assigning the value of name to the user input from our form
     let newSchool = new WizardSchool(schoolName.value, 500, 6, 14, spellsPerCaster.value, 10, 100);
-    console.log(newSchool);
+    //add our new school to the wizard array
+    wizardSchoolArray.push(newSchool);
     //invoke our displayTotalSpells function passing in our new school instance
     displayTotalSpells(newSchool);
+    //re run our display footer function after a new school is added
+    displayFooter();
 }
 
 //attach an event listener to our form that will listen for a submit event and run our createNewSchool function
@@ -136,6 +197,8 @@ function populateTable() {
         //call our displayTotalSpells function passing in the object at index of i in our wizardSchoolArray
         displayTotalSpells(wizardSchoolArray[i]);
     }
+    //invoke our function that will display our total footer
+    displayFooter();
 }
 
 //invoke our populate table function that will display our intitial table on page load including the header and pre-existing instances of our object constructor
@@ -146,7 +209,6 @@ function addSpells(array) {
     //use prototype to create a spells property on all of the instances of our object constructor 
     WizardSchool.prototype.spells = array;
 }
-addSpells(['fireball', 'icebolt']);
 
 //define a function that will add a method to our constructor to combine all our spells into a single string
 function combineSpells() {
@@ -161,4 +223,3 @@ function combineSpells() {
     };
 }
 
-combineSpells();

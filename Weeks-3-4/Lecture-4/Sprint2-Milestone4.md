@@ -1,4 +1,4 @@
-# Assignment Overview: Lab 9
+# Sprint 2 Milestone 4
 
 Continue working on the functionality of your **sales.html** page if you do not have it working 100% yet, including the row of totals across the bottom.
 
