@@ -1,0 +1,38 @@
+.parallax1 { 
+    /* The image used */
+    background-image: url("../assets/EW_Harry-Potter_Featured.jpg");
+
+    /* Set a specific height */
+    height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax2 { 
+    /* The image used */
+    background-image: url("../assets/images.jpg");
+
+    /* Set a specific height */
+    height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.seperator {
+    padding: 50px;
+    width: 100%;
+    text-align: center;
+    background-color: aqua
+}
+
+button {
+    margin-top: 200px;
+}
