@@ -120,13 +120,12 @@ function displayFooter() {
     let total = 0;
     //loop through for the amount of hours that our schools are open
     for(let i=0; i < 8; i++) {
-        //declare a variable that will have the value and track 
+        //declare a variable that will have the value and track the amount of spells per hour
         let totalSpellsPerHour = 0;
         for(let j=0; j < wizardSchoolArray.length; j++) {
             totalSpellsPerHour += wizardSchoolArray[j].spellsPerHourArray[i];
             console.log('inner for loop', wizardSchoolArray[j].name, j);
         }
-        console.log('outer for loop', i);
         //create new th to contain our total spells per hour for all schools
         let elTotalSpellsPerHourFooter = document.createElement('th');
         elTotalSpellsPerHourFooter.setAttribute('class', 'footer');
@@ -155,11 +154,11 @@ let schoolName = elForm.schoolName;
 let spellsPerCaster = elForm.spellsPerCaster;
 
 //define function called createNewSchool to let user create a new school with form.
-function createNewSchool(event) {
+function createNewSchool() {
     //use prevent default method to prevent the page from refreshing
-    event.preventDefault();
+    // event.preventDefault();
     //remove our old footer before creating and appending a new one
-    console.log(elTable.childNodes);
+    console.log('event firing', elTable.childNodes);
     elTable.removeChild(elTable.childNodes[elTable.childNodes.length - 1]);
     //declare a variable called newSchool with a new instantiated object of our constructor assigning the value of name to the user input from our form
     let newSchool = new WizardSchool(schoolName.value, 500, 6, 14, spellsPerCaster.value, 10, 100);
@@ -205,21 +204,21 @@ function populateTable() {
 populateTable();
 
 //define a function that allows us add a prototype property on to our object constructor instances
-function addSpells(array) {
-    //use prototype to create a spells property on all of the instances of our object constructor 
-    WizardSchool.prototype.spells = array;
-}
+// function addSpells(array) {
+//     //use prototype to create a spells property on all of the instances of our object constructor 
+//     WizardSchool.prototype.spells = array;
+// }
 
-//define a function that will add a method to our constructor to combine all our spells into a single string
-function combineSpells() {
-    //use prototype to add a new property called stringOfSpells on to all of the instances of our constructor and assign it the value of empty string
-    WizardSchool.prototype.stringOfSpells = '';
-    //use prototype to add a method called combineSpells to all of the instances of our object constructor
-    WizardSchool.prototype.combineSpells = function() {
-        //write a for loop that will loop through our spells property array and concatenate each value together assigning it to the property of stringOfSpells
-        for(let i = 0; i < this.spells.length; i++) {
-            this.stringOfSpells += this.spells[i] + ', ';
-        }
-    };
-}
+// //define a function that will add a method to our constructor to combine all our spells into a single string
+// function combineSpells() {
+//     //use prototype to add a new property called stringOfSpells on to all of the instances of our constructor and assign it the value of empty string
+//     WizardSchool.prototype.stringOfSpells = '';
+//     //use prototype to add a method called combineSpells to all of the instances of our object constructor
+//     WizardSchool.prototype.combineSpells = function() {
+//         //write a for loop that will loop through our spells property array and concatenate each value together assigning it to the property of stringOfSpells
+//         for(let i = 0; i < this.spells.length; i++) {
+//             this.stringOfSpells += this.spells[i] + ', ';
+//         }
+//     };
+// }
 
