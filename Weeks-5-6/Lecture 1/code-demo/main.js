@@ -1,11 +1,6 @@
 //declare a variable and assign the value of an empty array that will hold all of our image objects
 let heroImageArray = [];
 
-//use getElementById to find our image tags in html
-// let imageOne = document.getElementById('image1');
-// let imageTwo = document.getElementById('image2');
-// let imageThree = document.getElementById('image3');
-
 //find our image container element using document.getElementById
 let elImageContainer = document.getElementById('image-container');
 
@@ -17,6 +12,7 @@ let HeroImage = function(name, universe, filePath, id) {
     this.id = id;
     this.clicked = 0;
     this.shown = 0;
+    this.addClicks;
 };
 
 //instantiate our constructor to create multiple instances/objects of hero images
@@ -36,25 +32,52 @@ function randomImage() {
     let randomNumber = Math.floor(Math.random() * heroImageArray.length);
     //declare a variable that will store the image object at the index of our random number
     let imageIndex = heroImageArray[randomNumber];
-    //increment the shown property of our random image object by 1
-    imageIndex.shown += 1;
     //return our random image object
     return imageIndex;
 }
 
+//define event handler function that will increment the times clicked for the firstImage
+function  imageClicked(event) {
+    //if the id of the target html element matches the first, second or third image object, increment that objects clicked property by 1
+    if(event.target.id === firstImage.id) {
+        firstImage.clicked += 1;
+    } else if(event.target.id === secondImage.id) {
+        secondImage.clicked += 1;
+    } else if(event.target.id === thirdImage.id) {
+        thirdImage.clicked += 1;
+    }
+    //invoke our display images function to display 3 new images
+    displayImages();
+    console.log('event target', event.target);
+    console.log('event', firstImage.clicked, secondImage.clicked, thirdImage.clicked);
+}
+
+//declare three variables that will eventually hold our image objects that are being displayed on the page
 let firstImage;
 let secondImage;
 let thirdImage;
 
 //define a function that will display our random images
 function displayImages() {
+    //re-assign the image container html to an empty string so that it removes our previously shown images
+    elImageContainer.innerHTML = '';
+    //create a loop that will iterate 3 times to display 3 images
     for(let i =0; i < 3; i++) {
+        //create a new img html element
         let elImage = document.createElement('img');
+        //declare a variable and assign it the value that is returned from invoking randomImage function
         let imageObject = randomImage();
+        //append our img tag to image container
         elImageContainer.appendChild(elImage);
+        //set an id attribute to our new img element
         elImage.setAttribute('id', imageObject.id);
+        //change the src attribute on our new image element to the filepath property on our current image object
         elImage.src = imageObject.filePath;
+        //attach an event listener to our new img element
         elImage.addEventListener('click', imageClicked);
+        //increment the shown property on our current image object by 1
+        imageObject.shown += 1;
+        //write conditionals that will check what iteration our for loop is on and assign our firstImage, secondImage, and thirdImage variables the value of our current image object
         if(i === 0) {
             firstImage = imageObject;
         } else if(i === 1) {
@@ -65,29 +88,8 @@ function displayImages() {
     }
 }
 
-
+//invoke our display images function that will dispaly our initial 3 images
 displayImages();
 console.log(elImageContainer);
 console.log('images', firstImage, secondImage, thirdImage);
 
-//declaring variables that will store the return value for our random image function
-// let firstImage = randomImage();
-// let secondImage = randomImage();
-// let thirdImage = randomImage();
-
-// //set the src attribute of our image tags to the filepath of our new images
-// imageOne.src = firstImage.filePath;
-// imageTwo.src = secondImage.filePath;
-// imageThree.src = thirdImage.filePath;
-
-//define event handler function that will increment the times clicked for the firstImage
-function  imageClicked(event) {
-    console.log('event', event.target.id);
-}
-
-//attach an event listener to our imageOne html tag and listen for a click event that will invoke our event handler function
-// imageOne.addEventListener('click', imageClicked);
-
-// console.log('first image shown', firstImage.shown);
-// console.log('second image shown', secondImage.shown);
-// console.log('third image shown', thirdImage.shown);
