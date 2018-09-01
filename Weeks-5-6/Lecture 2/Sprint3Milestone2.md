@@ -1,4 +1,4 @@
- # Assignment Overview: Lab 12
+ # Sprint 3 Milestone 2
 
 Your savvy marketing person has just informed you that just showing users the numbered data of the click percentages is not going to cut it.
 You need a visual representation to grab the user's attention.
