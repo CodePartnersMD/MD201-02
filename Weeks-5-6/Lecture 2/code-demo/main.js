@@ -15,16 +15,24 @@ let HeroImage = function(name, universe, filePath, id) {
     this.addClicks;
 };
 
-//instantiate our constructor to create multiple instances/objects of hero images
-let Thor = new HeroImage('Thor', 'Marvel', './assets/thor.jpg', 'thor');
-let Thanos = new HeroImage('Thanos', 'Marvel', './assets/thanos.jpg', 'thanos');
-let BlackPanther = new HeroImage('Black Panther', 'Marvel', './assets/black-panther.jpg', 'blackPanther');
-let Hulk = new HeroImage('Hulk', 'Marvel', './assets/hulk.jpg', 'hulk');
-let DeadPool = new HeroImage('Dead Pool', 'Marvel', './assets/deadpool.jpeg', 'deadPool');
-let DrStrange = new HeroImage('Dr Strange', 'Marvel', './assets/drstrange.jpg', 'drStrange');
+//check if localstorage exists
+if(localStorage.length > 0) {
+    //retrieve stored hero image array from local storage that contains our clicks and shown
+    let getData = localStorage.getItem('storageHeroImgArr');
+    //reassign the value of heroImageArray to the parsed version of hero image array that we stored in local storage
+    heroImageArray = JSON.parse(getData);
+} else {
+    //if local storage does not exist, instantiate our constructor to create multiple instances/objects of hero images
+    let Thor = new HeroImage('Thor', 'Marvel', './assets/thor.jpg', 'thor');
+    let Thanos = new HeroImage('Thanos', 'Marvel', './assets/thanos.jpg', 'thanos');
+    let BlackPanther = new HeroImage('Black Panther', 'Marvel', './assets/black-panther.jpg', 'blackPanther');
+    let Hulk = new HeroImage('Hulk', 'Marvel', './assets/hulk.jpg', 'hulk');
+    let DeadPool = new HeroImage('Dead Pool', 'Marvel', './assets/deadpool.jpeg', 'deadPool');
+    let DrStrange = new HeroImage('Dr Strange', 'Marvel', './assets/drstrange.jpg', 'drStrange');
 
-//push our new instances/objects to our imageArray
-heroImageArray.push(Thor, Thanos, BlackPanther, Hulk, DeadPool, DrStrange);
+    //push our new instances/objects to our imageArray
+    heroImageArray.push(Thor, Thanos, BlackPanther, Hulk, DeadPool, DrStrange);
+}
 
 //define a function that will select a random image object from our heroImageArray
 function randomImage() {
@@ -48,8 +56,10 @@ function  imageClicked(event) {
     }
     //invoke our display images function to display 3 new images
     displayImages();
-    console.log('event target', event.target);
-    console.log('event', firstImage.clicked, secondImage.clicked, thirdImage.clicked);
+    //every time an image is clicked, save our hero image array to local storage
+    localStorage.setItem('storageHeroImgArr', JSON.stringify(heroImageArray));
+    //invoke my chart function to display my data for images clicked and shown
+    displayChart();
 }
 
 //declare three variables that will eventually hold our image objects that are being displayed on the page
@@ -101,6 +111,6 @@ function displayImages() {
 
 //invoke our display images function that will dispaly our initial 3 images
 displayImages();
-console.log(elImageContainer);
-console.log('images', firstImage, secondImage, thirdImage);
 
+//difference between stringifying and not stringifying, we will not be able to access our object values
+// localStorage.setItem('exampleHeroImageArray', heroImageArray);
