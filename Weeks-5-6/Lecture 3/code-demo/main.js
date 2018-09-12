@@ -12,7 +12,6 @@ let HeroImage = function(name, universe, filePath, id) {
     this.id = id;
     this.clicked = 0;
     this.shown = 0;
-    this.addClicks;
 };
 
 //check if localstorage exists
@@ -58,6 +57,7 @@ function  imageClicked(event) {
     displayImages();
     //every time an image is clicked, save our hero image array to local storage
     localStorage.setItem('storageHeroImgArr', JSON.stringify(heroImageArray));
+    //equal to localStorage.storageHeroImgArr = JSON.stringify(heroImageArray)
     //invoke my chart function to display my data for images clicked and shown
     displayChart();
 }
